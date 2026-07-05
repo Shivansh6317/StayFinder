@@ -1,0 +1,17 @@
+.hotel-grid{
+
+    width:90%;
+
+    max-width:1300px;
+
+    margin:50px auto;
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+
+}
