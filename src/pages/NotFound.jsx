@@ -1,25 +1,70 @@
 import { Link } from "react-router-dom";
 
-export default function NotFound(){
+export default function NotFound() {
 
-    return(
+    return (
 
         <div
+
             style={{
-                textAlign:"center",
-                marginTop:"100px"
+
+                minHeight:"70vh",
+
+                display:"flex",
+
+                flexDirection:"column",
+
+                justifyContent:"center",
+
+                alignItems:"center"
+
             }}
+
         >
 
-            <h1>404</h1>
+            <h1
 
-            <h2>Page Not Found</h2>
+                style={{
 
-            <br />
+                    fontSize:"90px",
 
-            <Link to="/">
+                    color:"#2563eb"
 
-                Back Home
+                }}
+
+            >
+
+                404
+
+            </h1>
+
+            <h2>
+
+                Page Not Found
+
+            </h2>
+
+            <br/>
+
+            <Link
+
+                to="/"
+
+                style={{
+
+                    background:"#2563eb",
+
+                    color:"white",
+
+                    padding:"12px 20px",
+
+                    borderRadius:"8px"
+
+                }}
+
+            >
+
+                Back To Home
 
             </Link>
 

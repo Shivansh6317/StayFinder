@@ -6,25 +6,27 @@ import FilterBar from "../components/FilterBar/FilterBar";
 import SortBar from "../components/SortBar/SortBar";
 import HotelGrid from "../components/HotelGrid/HotelGrid";
 import Pagination from "../components/Pagination/Pagination";
+import Loader from "../components/Loader/Loader";
+import Error from "../components/Error/Error";
 
 import useHotels from "../hooks/useHotels";
 
 import filterHotels from "../utils/filterHotels";
 import sortHotels from "../utils/sortHotels";
 
-export default function Home() {
+export default function Home(){
 
-    const PAGE_SIZE = 12;
+    const PAGE_SIZE=12;
 
-    const [currentPage, setCurrentPage] = useState(0);
+    const[currentPage,setCurrentPage]=useState(0);
 
-    const [search, setSearch] = useState("");
+    const[search,setSearch]=useState("");
 
-    const [selectedLocation, setSelectedLocation] = useState("");
+    const[selectedLocation,setSelectedLocation]=useState("");
 
-    const [sort, setSort] = useState("");
+    const[sort,setSort]=useState("");
 
-    const {
+    const{
 
         hotels,
 
@@ -34,15 +36,15 @@ export default function Home() {
 
         total
 
-    } = useHotels(currentPage, PAGE_SIZE);
+    }=useHotels(currentPage,PAGE_SIZE);
 
-    const locations = useMemo(() => {
+    const locations=useMemo(()=>{
 
-        return [...new Set(hotels.map(hotel => hotel.location))];
+        return [...new Set(hotels.map(h=>h.location))];
 
-    }, [hotels]);
+    },[hotels]);
 
-    let filteredHotels = filterHotels(
+    let filteredHotels=filterHotels(
 
         hotels,
 
@@ -52,7 +54,7 @@ export default function Home() {
 
     );
 
-    filteredHotels = sortHotels(
+    filteredHotels=sortHotels(
 
         filteredHotels,
 
@@ -60,11 +62,11 @@ export default function Home() {
 
     );
 
-    return (
+    return(
 
         <>
 
-            <Hero />
+            <Hero/>
 
             <div className="controls">
 
@@ -100,50 +102,35 @@ export default function Home() {
 
                 loading ?
 
-                    <h2
-                        style={{
-                            textAlign: "center",
-                            marginTop: "40px"
-                        }}
-                    >
-                        Loading Hotels...
-                    </h2>
+                <Loader/>
 
-                    :
+                :
 
-                    error ?
+                error ?
 
-                        <h2
-                            style={{
-                                color: "red",
-                                textAlign: "center",
-                                marginTop: "40px"
-                            }}
-                        >
-                            {error}
-                        </h2>
+                <Error message={error}/>
 
-                        :
+                :
 
-                        <>
+                <>
 
-                            <HotelGrid
+                    <HotelGrid
 
-                                hotels={filteredHotels}
+                        hotels={filteredHotels}
 
-                            />
+                    />
 
-                            <Pagination
+                    <Pagination
 
-                                currentPage={currentPage}
+                        currentPage={currentPage}
 
-                                setCurrentPage={setCurrentPage}
+                        setCurrentPage={setCurrentPage}
 
-                                totalPages={Math.ceil(total / PAGE_SIZE)}
+                        totalPages={Math.ceil(total/PAGE_SIZE)}
 
-                            />
+                    />
 
-                        </>
+                </>
 
             }
 
