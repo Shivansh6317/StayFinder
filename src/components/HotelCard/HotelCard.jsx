@@ -1,12 +1,17 @@
 import "./HotelCard.css";
 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
-export default function HotelCard({hotel}){
+import { WishlistContext } from "../../context/WishlistContext";
 
-    const navigate=useNavigate();
+export default function HotelCard({ hotel }) {
 
-    return(
+    const navigate = useNavigate();
+
+    const { addHotel } = useContext(WishlistContext);
+
+    return (
 
         <div className="hotel-card">
 
@@ -30,21 +35,37 @@ export default function HotelCard({hotel}){
 
                 <p>
 
-                    {hotel.description.slice(0,100)}...
+                    {hotel.description?.slice(0, 100)}...
 
                 </p>
 
-                <button
+                <div className="button-group">
 
-                    className="details-btn"
+                    <button
 
-                    onClick={()=>navigate(`/hotel/${hotel.id}`)}
+                        className="wishlist-btn"
 
-                >
+                        onClick={() => addHotel(hotel)}
 
-                    View Details
+                    >
 
-                </button>
+                        Add Wishlist
+
+                    </button>
+
+                    <button
+
+                        className="details-btn"
+
+                        onClick={() => navigate(`/hotel/${hotel.id}`)}
+
+                    >
+
+                        View Details
+
+                    </button>
+
+                </div>
 
             </div>
 
