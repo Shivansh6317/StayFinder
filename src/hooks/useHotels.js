@@ -1,34 +1,54 @@
-import { useEffect, useState } from "react";
+import {useEffect,useState} from "react";
 
-import { fetchHotels } from "../services/hotelApi";
+import {fetchHotels} from "../services/hotelApi";
 
-export default function useHotels() {
+export default function useHotels(
 
-    const [hotels, setHotels] = useState([]);
+    currentPage,
 
-    const [loading, setLoading] = useState(true);
+    pageSize
 
-    const [error, setError] = useState("");
+){
 
-    useEffect(() => {
+    const[hotels,setHotels]=useState([]);
 
-        async function loadHotels() {
+    const[loading,setLoading]=useState(true);
 
-            try {
+    const[error,setError]=useState("");
 
-                const data = await fetchHotels(12, 0);
+    const[total,setTotal]=useState(0);
+
+    useEffect(()=>{
+
+        async function loadHotels(){
+
+            try{
+
+                setLoading(true);
+
+                const data=
+
+                await fetchHotels(
+
+                    pageSize,
+
+                    currentPage*pageSize
+
+                );
 
                 setHotels(data.data);
 
+                setTotal(data.count);
+
             }
 
-            catch (err) {
+            catch(err){
 
                 setError(err.message);
 
             }
 
-            finally {
+            finally{
 
                 setLoading(false);
 
@@ -38,15 +58,17 @@ export default function useHotels() {
 
         loadHotels();
 
-    }, []);
+    },[currentPage,pageSize]);
 
-    return {
+    return{
 
         hotels,
 
         loading,
 
-        error
+        error,
+
+        total
 
     };
 

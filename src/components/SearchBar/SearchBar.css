@@ -1,0 +1,23 @@
+.searchBar{
+
+    width:90%;
+
+    max-width:1300px;
+
+    margin:40px auto 20px;
+
+}
+
+.searchBar input{
+
+    width:100%;
+
+    padding:16px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    font-size:17px;
+
+}

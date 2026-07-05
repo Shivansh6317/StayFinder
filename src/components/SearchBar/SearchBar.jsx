@@ -1,0 +1,31 @@
+import "./SearchBar.css";
+
+export default function SearchBar({
+
+    search,
+
+    setSearch
+
+}){
+
+    return(
+
+        <div className="searchBar">
+
+            <input
+
+                type="text"
+
+                placeholder="Search hotels..."
+
+                value={search}
+
+                onChange={(e)=>setSearch(e.target.value)}
+
+            />
+
+        </div>
+
+    );
+
+}

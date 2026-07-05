@@ -1,0 +1,21 @@
+.filterBar{
+
+    width:90%;
+
+    max-width:1300px;
+
+    margin:auto;
+
+}
+
+.filterBar select{
+
+    padding:14px;
+
+    width:250px;
+
+    border-radius:8px;
+
+    border:1px solid #ddd;
+
+}
