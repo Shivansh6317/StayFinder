@@ -1,42 +1,43 @@
-import {useEffect,useState} from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import {useParams,useNavigate} from "react-router-dom";
+import "./HotelDetails.css";
 
-export default function HotelDetails(){
+export default function HotelDetails() {
 
-    const{id}=useParams();
+    const { id } = useParams();
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    const[hotel,setHotel]=useState(null);
+    const [hotel, setHotel] = useState(null);
 
-    const[loading,setLoading]=useState(true);
+    const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
+    const [error, setError] = useState("");
 
-        async function fetchHotel(){
+    useEffect(() => {
 
-            try{
+        async function fetchHotel() {
 
-                const response=await fetch(
+            try {
 
+                const response = await fetch(
                     `https://demohotelsapi.pythonanywhere.com/hotels/${id}`
-
                 );
 
-                const data=await response.json();
+                if (!response.ok) {
+                    throw new Error("Unable to fetch hotel.");
+                }
+
+                const data = await response.json();
 
                 setHotel(data.data);
 
-            }
+            } catch (err) {
 
-            catch(err){
+                setError(err.message);
 
-                console.log(err);
-
-            }
-
-            finally{
+            } finally {
 
                 setLoading(false);
 
@@ -46,65 +47,98 @@ export default function HotelDetails(){
 
         fetchHotel();
 
-    },[id]);
+    }, [id]);
 
-    if(loading){
+    if (loading) {
 
-        return(
-
-            <h2 style={{textAlign:"center"}}>
-
-                Loading...
-
-            </h2>
-
-        );
+        return <h2 className="loading">Loading Hotel...</h2>;
 
     }
 
-    return(
+    if (error) {
 
-        <div className="container" style={{marginTop:"40px"}}>
+        return <h2 className="error">{error}</h2>;
+
+    }
+
+    return (
+
+        <div className="details-container">
 
             <button
-
-                onClick={()=>navigate(-1)}
-
+                className="back-btn"
+                onClick={() => navigate(-1)}
             >
-
                 ← Back
-
             </button>
 
-            <br/><br/>
-
             <img
-
                 src={hotel.thumbnail}
-
-                style={{
-
-                    width:"100%",
-
-                    borderRadius:"10px"
-
-                }}
-
+                alt={hotel.name}
+                className="banner-image"
             />
 
-            <h1>{hotel.name}</h1>
+            <div className="details-content">
 
-            <h3>📍 {hotel.location}</h3>
+                <h1>{hotel.name}</h1>
 
-            <h3>⭐ {hotel.rating}</h3>
+                <div className="hotel-meta">
 
-            <h3>₹ {hotel.price}</h3>
+                    <span>📍 {hotel.location}</span>
 
-            <p style={{marginTop:"20px"}}>
+                    <span>⭐ {hotel.rating} / 5</span>
 
-                {hotel.description}
+                </div>
 
-            </p>
+                <h2 className="price">
+
+                    ₹ {Number(hotel.price).toLocaleString()} / Night
+
+                </h2>
+
+                <p className="description">
+
+                    {hotel.description}
+
+                </p>
+
+                {
+
+                    hotel.photos.length > 0 && (
+
+                        <>
+
+                            <h2>Gallery</h2>
+
+                            <div className="gallery">
+
+                                {
+
+                                    hotel.photos.map((photo, index) => (
+
+                                        <img
+
+                                            key={index}
+
+                                            src={photo}
+
+                                            alt={hotel.name}
+
+                                        />
+
+                                    ))
+
+                                }
+
+                            </div>
+
+                        </>
+
+                    )
+
+                }
+
+            </div>
 
         </div>
 

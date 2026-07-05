@@ -6,9 +6,9 @@ export default function WishlistProvider({ children }) {
 
     const [wishlist, setWishlist] = useState(() => {
 
-        const stored = localStorage.getItem("wishlist");
+        const data = localStorage.getItem("wishlist");
 
-        return stored ? JSON.parse(stored) : [];
+        return data ? JSON.parse(data) : [];
 
     });
 
@@ -34,7 +34,7 @@ export default function WishlistProvider({ children }) {
 
         if (exists) {
 
-            alert("Hotel already exists in wishlist.");
+            alert("Hotel already added to wishlist.");
 
             return;
 

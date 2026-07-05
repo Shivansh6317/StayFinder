@@ -8,17 +8,17 @@ export default function Pagination({
 
     totalPages
 
-}){
+}) {
 
-    return(
+    return (
 
         <div className="pagination">
 
             <button
 
-                disabled={currentPage===0}
+                disabled={currentPage === 0}
 
-                onClick={()=>setCurrentPage(currentPage-1)}
+                onClick={() => setCurrentPage(currentPage - 1)}
 
             >
 
@@ -28,7 +28,7 @@ export default function Pagination({
 
             {
 
-                [...Array(totalPages)].map((_,index)=>(
+                [...Array(totalPages)].map((_, index) => (
 
                     <button
 
@@ -36,23 +36,19 @@ export default function Pagination({
 
                         className={
 
-                            currentPage===index
+                            currentPage === index
 
-                            ?
+                                ? "active"
 
-                            "active"
-
-                            :
-
-                            ""
+                                : ""
 
                         }
 
-                        onClick={()=>setCurrentPage(index)}
+                        onClick={() => setCurrentPage(index)}
 
                     >
 
-                        {index+1}
+                        {index + 1}
 
                     </button>
 
@@ -62,9 +58,9 @@ export default function Pagination({
 
             <button
 
-                disabled={currentPage===totalPages-1}
+                disabled={currentPage === totalPages - 1}
 
-                onClick={()=>setCurrentPage(currentPage+1)}
+                onClick={() => setCurrentPage(currentPage + 1)}
 
             >
 

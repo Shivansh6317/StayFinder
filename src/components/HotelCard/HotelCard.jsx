@@ -29,9 +29,13 @@ export default function HotelCard({ hotel }) {
 
                 <p>📍 {hotel.location}</p>
 
-                <p>⭐ {hotel.rating}</p>
+                <p>⭐ {hotel.rating} / 5</p>
 
-                <h3>₹ {hotel.price}</h3>
+                <h3>
+
+                    ₹ {Number(hotel.price).toLocaleString()}
+
+                </h3>
 
                 <p>
 

@@ -14,20 +14,6 @@ export default function Wishlist() {
 
     } = useContext(WishlistContext);
 
-    if (wishlist.length === 0) {
-
-        return (
-
-            <div className="empty">
-
-                <h1>No Hotels in Wishlist</h1>
-
-            </div>
-
-        );
-
-    }
-
     return (
 
         <div className="wishlist">
@@ -36,51 +22,65 @@ export default function Wishlist() {
 
             {
 
-                wishlist.map(hotel => (
+                wishlist.length === 0 ?
 
-                    <div
+                    <h2 className="empty">
 
-                        key={hotel.id}
+                        Wishlist is Empty
 
-                        className="wishlist-card"
+                    </h2>
 
-                    >
+                    :
 
-                        <img
+                    wishlist.map(hotel => (
 
-                            src={hotel.thumbnail}
+                        <div
 
-                            alt={hotel.name}
+                            key={hotel.id}
 
-                        />
+                            className="wishlist-card"
 
-                        <div className="info">
+                        >
 
-                            <h2>{hotel.name}</h2>
+                            <img
 
-                            <p>📍 {hotel.location}</p>
+                                src={hotel.thumbnail}
 
-                            <p>⭐ {hotel.rating}</p>
+                                alt={hotel.name}
 
-                            <h3>₹ {hotel.price}</h3>
+                            />
 
-                            <button
+                            <div className="wishlist-info">
 
-                                className="remove"
+                                <h2>{hotel.name}</h2>
 
-                                onClick={() => removeHotel(hotel.id)}
+                                <p>📍 {hotel.location}</p>
 
-                            >
+                                <p>⭐ {hotel.rating}</p>
 
-                                Remove
+                                <h3>
 
-                            </button>
+                                    ₹ {Number(hotel.price).toLocaleString()}
+
+                                </h3>
+
+                                <button
+
+                                    className="remove-btn"
+
+                                    onClick={() => removeHotel(hotel.id)}
+
+                                >
+
+                                    Remove
+
+                                </button>
+
+                            </div>
 
                         </div>
 
-                    </div>
-
-                ))
+                    ))
 
             }
 

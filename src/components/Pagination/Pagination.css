@@ -2,7 +2,7 @@
 
     width:90%;
 
-    margin:50px auto;
+    margin:40px auto;
 
     display:flex;
 
@@ -20,11 +20,11 @@
 
     padding:10px 16px;
 
+    background:#f3f4f6;
+
     border:none;
 
     border-radius:8px;
-
-    background:#e5e7eb;
 
     cursor:pointer;
 
@@ -40,7 +40,7 @@
 
 }
 
-.pagination button.active{
+.pagination .active{
 
     background:#2563eb;
 

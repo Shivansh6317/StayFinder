@@ -1,66 +1,117 @@
 .hotel-card{
-    background:white;
+
+    background:#ffffff;
+
     border-radius:12px;
+
     overflow:hidden;
-    box-shadow:0 4px 12px rgba(0,0,0,.1);
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+
     transition:.3s;
+
+    display:flex;
+
+    flex-direction:column;
+
 }
 
 .hotel-card:hover{
-    transform:translateY(-5px);
+
+    transform:translateY(-6px);
+
 }
 
 .hotel-card img{
+
     width:100%;
+
     height:220px;
+
     object-fit:cover;
+
 }
 
 .hotel-content{
+
     padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
 }
 
 .hotel-content h2{
-    margin-bottom:10px;
+
+    font-size:22px;
+
 }
 
 .hotel-content p{
-    margin:8px 0;
-    line-height:1.5;
+
+    color:#555;
+
+    line-height:1.6;
+
 }
 
 .hotel-content h3{
+
     color:#2563eb;
-    margin:10px 0;
+
 }
 
 .button-group{
+
     display:flex;
+
     gap:10px;
-    margin-top:15px;
+
+    margin-top:10px;
+
 }
 
 .button-group button{
+
     flex:1;
+
     padding:12px;
+
     border:none;
+
     border-radius:8px;
+
     color:white;
+
     cursor:pointer;
+
+    transition:.3s;
+
 }
 
 .wishlist-btn{
-    background:#f59e0b;
-}
 
-.details-btn{
-    background:#2563eb;
+    background:#f59e0b;
+
 }
 
 .wishlist-btn:hover{
+
     background:#d97706;
+
+}
+
+.details-btn{
+
+    background:#2563eb;
+
 }
 
 .details-btn:hover{
+
     background:#1d4ed8;
+
 }

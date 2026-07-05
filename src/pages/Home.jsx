@@ -1,4 +1,4 @@
-import {useMemo,useState} from "react";
+import { useMemo, useState } from "react";
 
 import Hero from "../components/Hero/Hero";
 import SearchBar from "../components/SearchBar/SearchBar";
@@ -12,13 +12,19 @@ import useHotels from "../hooks/useHotels";
 import filterHotels from "../utils/filterHotels";
 import sortHotels from "../utils/sortHotels";
 
-export default function Home(){
+export default function Home() {
 
-    const PAGE_SIZE=12;
+    const PAGE_SIZE = 12;
 
-    const[currentPage,setCurrentPage]=useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
 
-    const{
+    const [search, setSearch] = useState("");
+
+    const [selectedLocation, setSelectedLocation] = useState("");
+
+    const [sort, setSort] = useState("");
+
+    const {
 
         hotels,
 
@@ -28,31 +34,15 @@ export default function Home(){
 
         total
 
-    }=useHotels(
+    } = useHotels(currentPage, PAGE_SIZE);
 
-        currentPage,
+    const locations = useMemo(() => {
 
-        PAGE_SIZE
+        return [...new Set(hotels.map(hotel => hotel.location))];
 
-    );
+    }, [hotels]);
 
-    const[search,setSearch]=useState("");
-
-    const[selectedLocation,setSelectedLocation]=useState("");
-
-    const[sort,setSort]=useState("");
-
-    const locations=useMemo(()=>{
-
-        return [...new Set(
-
-            hotels.map(h=>h.location)
-
-        )];
-
-    },[hotels]);
-
-    let filtered=filterHotels(
+    let filteredHotels = filterHotels(
 
         hotels,
 
@@ -62,87 +52,98 @@ export default function Home(){
 
     );
 
-    filtered=sortHotels(
+    filteredHotels = sortHotels(
 
-        filtered,
+        filteredHotels,
 
         sort
 
     );
 
-    return(
+    return (
 
         <>
 
-            <Hero/>
+            <Hero />
 
-            <SearchBar
+            <div className="controls">
 
-                search={search}
+                <SearchBar
 
-                setSearch={setSearch}
+                    search={search}
 
-            />
+                    setSearch={setSearch}
 
-            <FilterBar
+                />
 
-                locations={locations}
+                <FilterBar
 
-                selectedLocation={selectedLocation}
+                    locations={locations}
 
-                setSelectedLocation={setSelectedLocation}
+                    selectedLocation={selectedLocation}
 
-            />
+                    setSelectedLocation={setSelectedLocation}
 
-            <SortBar
+                />
 
-                sort={sort}
+                <SortBar
 
-                setSort={setSort}
+                    sort={sort}
 
-            />
+                    setSort={setSort}
+
+                />
+
+            </div>
 
             {
 
                 loading ?
 
-                <h2 style={{textAlign:"center"}}>
+                    <h2
+                        style={{
+                            textAlign: "center",
+                            marginTop: "40px"
+                        }}
+                    >
+                        Loading Hotels...
+                    </h2>
 
-                    Loading...
+                    :
 
-                </h2>
+                    error ?
 
-                :
+                        <h2
+                            style={{
+                                color: "red",
+                                textAlign: "center",
+                                marginTop: "40px"
+                            }}
+                        >
+                            {error}
+                        </h2>
 
-                error ?
+                        :
 
-                <h2 style={{textAlign:"center"}}>
+                        <>
 
-                    {error}
+                            <HotelGrid
 
-                </h2>
+                                hotels={filteredHotels}
 
-                :
+                            />
 
-                <>
+                            <Pagination
 
-                    <HotelGrid
+                                currentPage={currentPage}
 
-                        hotels={filtered}
+                                setCurrentPage={setCurrentPage}
 
-                    />
+                                totalPages={Math.ceil(total / PAGE_SIZE)}
 
-                    <Pagination
+                            />
 
-                        currentPage={currentPage}
-
-                        setCurrentPage={setCurrentPage}
-
-                        totalPages={Math.ceil(total/PAGE_SIZE)}
-
-                    />
-
-                </>
+                        </>
 
             }
 
