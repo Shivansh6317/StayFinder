@@ -1,8 +1,12 @@
 import "./HotelCard.css";
 
-export default function HotelCard({ hotel }) {
+import {useNavigate} from "react-router-dom";
 
-    return (
+export default function HotelCard({hotel}){
+
+    const navigate=useNavigate();
+
+    return(
 
         <div className="hotel-card">
 
@@ -18,29 +22,29 @@ export default function HotelCard({ hotel }) {
 
                 <h2>{hotel.name}</h2>
 
-                <p>
+                <p>📍 {hotel.location}</p>
 
-                    📍 {hotel.location}
+                <p>⭐ {hotel.rating}</p>
 
-                </p>
-
-                <p>
-
-                    ⭐ {hotel.rating}
-
-                </p>
-
-                <h3>
-
-                    ₹ {hotel.price}
-
-                </h3>
+                <h3>₹ {hotel.price}</h3>
 
                 <p>
 
                     {hotel.description.slice(0,100)}...
 
                 </p>
+
+                <button
+
+                    className="details-btn"
+
+                    onClick={()=>navigate(`/hotel/${hotel.id}`)}
+
+                >
+
+                    View Details
+
+                </button>
 
             </div>
 

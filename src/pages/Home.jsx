@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import FilterBar from "../components/FilterBar/FilterBar";
 import SortBar from "../components/SortBar/SortBar";
 import HotelGrid from "../components/HotelGrid/HotelGrid";
+import Pagination from "../components/Pagination/Pagination";
 
 import useHotels from "../hooks/useHotels";
 
@@ -15,7 +16,7 @@ export default function Home(){
 
     const PAGE_SIZE=12;
 
-    const[currentPage]=useState(0);
+    const[currentPage,setCurrentPage]=useState(0);
 
     const{
 
@@ -23,7 +24,9 @@ export default function Home(){
 
         loading,
 
-        error
+        error,
+
+        total
 
     }=useHotels(
 
@@ -103,11 +106,7 @@ export default function Home(){
 
                 loading ?
 
-                <h2 style={{
-
-                    textAlign:"center"
-
-                }}>
+                <h2 style={{textAlign:"center"}}>
 
                     Loading...
 
@@ -117,15 +116,33 @@ export default function Home(){
 
                 error ?
 
-                <h2>{error}</h2>
+                <h2 style={{textAlign:"center"}}>
+
+                    {error}
+
+                </h2>
 
                 :
 
-                <HotelGrid
+                <>
 
-                    hotels={filtered}
+                    <HotelGrid
 
-                />
+                        hotels={filtered}
+
+                    />
+
+                    <Pagination
+
+                        currentPage={currentPage}
+
+                        setCurrentPage={setCurrentPage}
+
+                        totalPages={Math.ceil(total/PAGE_SIZE)}
+
+                    />
+
+                </>
 
             }
 
